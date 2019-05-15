@@ -1,5 +1,18 @@
 const inquirer = require("inquirer");
+const mysql = require("mysql");
 // const chalk = require('chalk');
+
+const connection = mysql.createConnection({
+	host:"localhost",
+	port:3306,
+	user:"root",
+	password:"password",
+	database:"ozone_online_retailer"
+});
+
+connection.connect(function(err){
+	console.log("Connected as id: " + connection.threadId);
+});
 
 console.log("\n\tO-zone retailer CLI\n");
 
