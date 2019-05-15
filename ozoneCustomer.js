@@ -1,6 +1,23 @@
 const inquirer = require("inquirer");
+const mysql = require("mysql");
 // const chalk = require('chalk');
 
+const createMySQLConnection = async function () {
+const connection = mysql.createConnection({
+	host:"localhost",
+	port:3306,
+	user:"root",
+	password:"password",
+	database:"ozone_online_retailer"
+});
+
+await connection.connect(function(err){
+	console.log("Connected as id: " + connection.threadId);
+});
+
+}
+
+function start() {
 console.log("\n\tO-zone retailer CLI\n");
 
 inquirer.prompt([
@@ -18,7 +35,10 @@ inquirer.prompt([
 		else return console.log("\nThank you for shopping.\n");
 	});
 	
-function main() {
+
+}
+	
+function main () {
 	var questions = [
 	{
     type: 'input',
@@ -44,10 +64,10 @@ function main() {
   inquirer.prompt(questions).then(answers => {
   console.log('\n');
   console.log(JSON.stringify(answers, null, '  '));
+  createMySQLConnection();
 });
 	
 	
 }
 
-
-
+start();

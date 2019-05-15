@@ -1,0 +1,24 @@
+{
+  "name": "o-zone",
+  "version": "1.0.0",
+  "description": "The Online Outlet Zone is an online store. This project uses Node.js and MySQL.",
+  "main": "ozoneCustomer.js",
+  "dependencies": {
+    "inquirer": "^6.3.1",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://golemheavy:b6981ec8980215664256e6a63f0914fb70bd78af@github.com/golemheavy/O-Zone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/golemheavy/O-Zone/issues"
+  },
+  "homepage": "https://github.com/golemheavy/O-Zone#readme"
+}
