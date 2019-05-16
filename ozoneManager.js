@@ -61,9 +61,8 @@ function viewProducts() {
 	// * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
 }
 function viewLowInventory() {
-	const qry = "";
-	arr = [];
-	executeQuery(qry, arr);	
+	const qry = "SELECT * FROM products WHERE  QTY_in_stock < 5;";
+	executeQuery(qry);
 	// * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 }
 function addInventory() {
@@ -81,8 +80,9 @@ function addProduct() {
 
 function executeQuery(qry, arr) {
 	//this function executes the query 
+	if (!arr) arr = [];
 	connection.query(qry,arr,function(err, res){
-		console.log('\nExecuted query:\t"' + qry + '" with values:\t' + arr);
-		connection.end();
+		console.log(res);
+		console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (arr.length === 0) return "none"; else return arr.toString();}());
 	});
 }
