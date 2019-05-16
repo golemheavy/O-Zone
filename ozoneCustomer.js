@@ -76,7 +76,11 @@ function main () {
 		connection.query("SELECT * FROM products WHERE item_id = ?",[answers.productId], function(err, res) {
 			if (err) throw err;
 			let difference = res[0].QTY_in_stock - answers.qtyToPurchase;
-			if (difference >= 0) transactPurchase(answers.productId, difference) ; // update qty and  console .log result
+			if (difference >= 0) {
+				console.log(res[0].product_name + ":\t" + answers.qtyToPurchase + " @ " + res[0].price + " = $" + ((answers.qtyToPurchase * res[0].price)/100))
+				transactPurchase(answers.productId, difference) ; // update qty and  console .log result
+			}
+			else console.log("Insufficient Quantity!");
 		});	
 	});
 }
