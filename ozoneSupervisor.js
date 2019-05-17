@@ -22,10 +22,8 @@ function printMenu() {
 var table = new Table({ head: ["Please Choose an option"] });
 
 table.push(
-	["* View Products for Sale"],
-	["* View Low Inventory"],
-	["* Add to Inventory"],
-	["* Add New Product"]
+	["* View Products and Sales by Department"],
+	["* Create New Department"]
 );
 	console.log(table.toString());
 }
@@ -38,16 +36,14 @@ function start() {
 	{
 		type: 'list',
 		name: 'selectOption',
-		choices: ["View Products","View Low Inventory","Add to Inventory","Add New Product"]
+		choices: ["View Products and Sales by Department","Create New Department"]
 	}
 	];
 	inquirer.prompt(questions).then(answers => {
 		console.log(answers);
 		switch (answers.selectOption) {
-			case "View Products": console.clear(); viewProducts(); break;
-			case "View Low Inventory": console.clear(); viewLowInventory(); break;
-			case "Add to Inventory": console.clear(); addInventory(); break;
-			case "Add New Product": console.clear(); addProduct(); break;
+			case "View Products and Sales by Department": console.clear(); prodSalesByDept(); break;
+			case "Create New Department": console.clear(); insertNewDept(); break;
 			default: break;
 		}
 	});
@@ -66,106 +62,29 @@ function promptForContinue() {
 	});
 }
 
-function viewProducts() { // list every available item: the item IDs, names, prices, and quantities.
-	const qry = "SELECT item_id, product_name, price, QTY_in_stock as In_Stock, department_name, product_sales FROM PRODUCTS P INNER JOIN DEPARTMENTS D ON P.DEPARTMENT_ID = D.DEPARTMENT_ID;";
-	executeQuery(qry);	
-}
-
-function viewLowInventory() {// list all items with an inventory count lower than five.
-	const qry = "SELECT * FROM products WHERE QTY_in_stock < ?";
-	const arr = ["5"];
+function prodSalesByDept() {
+	const qry = `select
+  SUBQ.department_id,
+  SUBQ.department_name,
+  SUBQ.over_head_costs,
+  SUM(SUBQ.product_sales) as product_sales,
+  SUM(SUBQ.PRODUCT_SALES - SUBQ.over_head_costs) as total_profits
+from
+(SELECT 
+  D.*,
+  P.product_sales
+  -- DeptSales - (d.over_head_costs) as total_profit
+FROM PRODUCTS P
+LEFT JOIN DEPARTMENTS D ON P.DEPARTMENT_ID = D.DEPARTMENT_ID) SUBQ
+group by SUBQ.DEPARTMENT_ID
+order by SUBQ.PRODUCT_SALES desc;`;
+	const arr = [];
 	executeQuery(qry,arr);
 }
 
-function addInventory() {
-	//prompt for which item and how many to increase it by
-		
-connection.query("SELECT CONCAT('item_id ', item_id, ' ', product_name, ' qty: ', QTY_in_stock) AS product FROM products;",[],function(err, res){
-	if (err) throw err;
-	let choiceArr = [];
-	for (x in res) {
-		choiceArr.push(res[x].product);
-	}
-	var questions = [
-	{
-		type: 'list',
-		name: 'selectItem',
-		choices: choiceArr  // load the choices dynamically
-	},
-	{
-    type: 'input',
-    name: 'addUnits',
-	message: 'What would you like to change the quantity to?',
-    //message: 'How many units would you like to add?',  FIX THIS -- should let you add to, not overwrite
-    validate: function(value) {
-      var valid = !isNaN(parseFloat(value));
-      return valid || 'Please enter a number';
-    },
-    filter: Number
-	}
-	];
-	inquirer.prompt(questions).then(answers => {
-		console.log(answers);
-		const qry = "update products set QTY_IN_STOCK = ? where ITEM_ID = ?";
-		const arr = [answers.addUnits.toString(),answers.selectItem.split(" ")[1]];
-		console.log(qry);
-		console.log(arr);
-		connection.query(qry,arr,function(err, res){
-			if (err) throw err;
-			//console.log(res);
-			console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
-			console.log("result:");
-			console.log(res.message + ")");
-			promptForContinue();
-		});
-	});
-	});
-}
-
-function addProduct() { // allow user to add a completely new product to the store.
+function insertNewDept() {
 	
-	connection.query("DESCRIBE PRODUCTS",[],function(err, res){
-		if (err) throw err;
-		if (typeof res !== "undefined" && res.length > 0) {
-			let intFieldNameArr = [];
-			let stringFieldNameArr = [];
-			let x;
-			for (x in res) {
-				if (res[x].Key === "" && res[x].Type.startsWith("int")) intFieldNameArr.push(res[x].Field);
-				else if (res[x].Key === "" && res[x].Type.startsWith("varchar")) stringFieldNameArr.push(res[x].Field);
-			}
-			
-			let y, z = 0;
-			let questions = [];
-			for (y in stringFieldNameArr) {
-				questions.push({type: "input", name: stringFieldNameArr[y], message: "Please enter value for " + stringFieldNameArr[y]});
-			}
-			for (z in intFieldNameArr) {
-				questions.push({
-					type: "input",
-					name: intFieldNameArr[z],
-					message: "Please enter value for " + intFieldNameArr[z],
-					validate: function(value) {
-						var valid = !isNaN(parseFloat(value));
-						return valid || 'Please enter a number';
-					},
-					filter: Number});
-			}
-			
-			inquirer.prompt(questions).then(answers => {
-				//console.log(JSON.stringify(answers, null, '  '));
-				var query = connection.query("INSERT INTO PRODUCTS SET ?",answers,function(err, res) {
-					if (err) throw err;
-					console.log(res.affectedRows + " items inserted!\n");
-					console.log(query.sql); // query which ran
-					// Call updateProduct AFTER the INSERT completes
-					//updateProduct();
-					promptForContinue();
-				});
-			});
-		}
-	})
-};
+}
 
 function executeQuery(qry, arr) {
 	//this function executes the query 
