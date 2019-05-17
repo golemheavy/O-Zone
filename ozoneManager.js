@@ -62,16 +62,7 @@ function viewProducts() {
 
 function viewLowInventory() {// * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 	const qry = "SELECT * FROM products WHERE  QTY_in_stock < 5;";
-	
-	let promise = new Promise(function(resolve,reject) {
-		resolve(executeQuery(qry));
-	});
-	
-	promise.then(
-		function(result) { console.log("And the result is:"); console.log(result); /* handle a successful result */ },
-		function(error) { throw error;/* handle an error */ }
-	);
-
+	executeQuery(qry);
 }
 
 function addInventory() {
