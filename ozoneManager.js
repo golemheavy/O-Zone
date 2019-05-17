@@ -13,6 +13,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err){
 	console.log("Connected as id: " + connection.threadId + "\n");
+	console.clear();
 	start();
 });
 
@@ -66,7 +67,7 @@ function promptForContinue() {
 }
 
 function viewProducts() { // list every available item: the item IDs, names, prices, and quantities.
-	const qry = "SELECT * FROM products;";
+	const qry = "SELECT item_id, product_name, price, QTY_in_stock as In_Stock, department_name, product_sales FROM PRODUCTS P INNER JOIN DEPARTMENTS D ON P.DEPARTMENT_ID = D.DEPARTMENT_ID;";
 	executeQuery(qry);	
 }
 
@@ -166,29 +167,26 @@ function addProduct() { // allow user to add a completely new product to the sto
 	})
 };
 
-function executeQuery(qry, arr) {
-	//this function executes the query 
-	//if (typeof arr === "undefined") arr = []; // this line is not needed
+function executeQuery(qry, arr) { //this function executes the query 
 	connection.query(qry,arr,function(err, res){
 		if (err) throw err;
 		if (typeof res !== "undefined" && res.length > 0) { // this checks to ensure that res is not an empty array
 		
-		let printRes = 
-		function(){
-			let columns = Object.keys(res[0]);
-			let table = new Table({ head: columns });
-			let x;
-			for (x in res) {
-				let rowArr = [];
-				for (y in columns) {
-					rowArr.push(res[x][columns[y]]);
+			let printRes = function(){
+				let columns = Object.keys(res[0]);
+				let table = new Table({ head: columns });
+				let x;
+				for (x in res) {
+					let rowArr = [];
+					for (y in columns) {
+						rowArr.push(res[x][columns[y]]);
 					}
-				table.push(rowArr);
-			}
-			console.log(table.toString());
-		}();
+					table.push(rowArr);
+				}
+				console.log(table.toString());
+			}();
 		
-		console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
+			console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
 		}
 		else console.log ("\nno results.\n");
 		promptForContinue();
