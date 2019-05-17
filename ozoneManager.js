@@ -55,22 +55,41 @@ function start() {
 }
 
 function viewProducts() {
-	const qry = "";
-	arr = [];
-	executeQuery(qry, arr);	
+	const qry = "SELECT * FROM products;";
+	executeQuery(qry);	
 	// * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
 }
-function viewLowInventory() {
+
+function viewLowInventory() {// * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 	const qry = "SELECT * FROM products WHERE  QTY_in_stock < 5;";
-	executeQuery(qry);
-	// * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
+	
+	let promise = new Promise(function(resolve,reject) {
+		resolve(executeQuery(qry));
+	});
+	
+	promise.then(
+		function(result) { console.log("And the result is:"); console.log(result); /* handle a successful result */ },
+		function(error) { throw error;/* handle an error */ }
+	);
+	
+	/*
+	let table = new Table({ // instantiate
+		head: ['product', 'qty remaining'],
+		colWidths: [40, 40]
+	});
+	
+	table.push(resultsArr); // table is an Array, so you can `push`, `unshift`, `splice` and friends
+	console.log(table.toString());	
+	*/
 }
+
 function addInventory() {
 	const qry = "";
 	arr = [];
 	executeQuery(qry, arr);	
 	// * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
 }
+
 function addProduct() {
 	const qry = "";
 	arr = [];
@@ -78,11 +97,33 @@ function addProduct() {
 	// * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
 }
 
+
+
 function executeQuery(qry, arr) {
 	//this function executes the query 
 	if (!arr) arr = [];
 	connection.query(qry,arr,function(err, res){
-		console.log(res);
+		if (err) throw err;
+		
+		let columns = Object.keys(res[0]);
+		let table = new Table({ head: columns });
+		let x;
+		for (x in res) {
+			let rowArr = [];
+			for (y in columns) {
+				//console.log(res[x][columns[y]]);
+				rowArr.push(res[x][columns[y]]);
+			}
+			table.push(rowArr); // .toString?
+		}
+		
+		
+		
+		
+		console.log(res); 
+				
+		console.log(table.toString());
+		
 		console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (arr.length === 0) return "none"; else return arr.toString();}());
 	});
 }
