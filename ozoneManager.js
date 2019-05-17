@@ -134,9 +134,6 @@ function addProduct() { // allow user to add a completely new product to the sto
 				else if (res[x].Key === "" && res[x].Type.startsWith("varchar")) stringFieldNameArr.push(res[x].Field);
 			}
 			
-			//console.log(intFieldNameArr);
-			//console.log(stringFieldNameArr);
-			
 			let y, z = 0;
 			let questions = [];
 			for (y in stringFieldNameArr) {
@@ -155,30 +152,23 @@ function addProduct() { // allow user to add a completely new product to the sto
 			}
 			
 			inquirer.prompt(questions).then(answers => {
-				console.log(answers);
-				const qry = "INSERT INTO PRODUCTS (?) VALUES (?);";
-				const columnNames = stringFieldNameArr.toString() + "," + intFieldNameArr.toString();
-				const valuesArr = [];
-				let a = 0;
-				let columnNamesArr = columnNames.split(",");
-				for (a in columnNamesArr) {
-					valuesArr.push(answers[columnNamesArr[a]]);
-				}
-				const arr = [columnNames, valuesArr.join(",")];
-				console.log("qry:");
-				console.log(qry);
-				console.log("arr:");
-				console.log(arr);
-				//executeQuery(qry, arr);	
+				//console.log(JSON.stringify(answers, null, '  '));
+				var query = connection.query("INSERT INTO PRODUCTS SET ?",answers,function(err, res) {
+					if (err) throw err;
+					console.log(res.affectedRows + " items inserted!\n");
+					console.log(query.sql); // query which ran
+					// Call updateProduct AFTER the INSERT completes
+					//updateProduct();
+					promptForContinue();
+				});
 			});
 		}
-		
-	});
-}
+	})
+};
 
 function executeQuery(qry, arr) {
 	//this function executes the query 
-	//if (typeof arr === "undefined") arr = [];
+	//if (typeof arr === "undefined") arr = []; // this line is not needed
 	connection.query(qry,arr,function(err, res){
 		if (err) throw err;
 		if (typeof res !== "undefined" && res.length > 0) { // this checks to ensure that res is not an empty array
