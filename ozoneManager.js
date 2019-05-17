@@ -43,10 +43,10 @@ function start() {
 	inquirer.prompt(questions).then(answers => {
 		console.log(answers);
 		switch (answers.selectOption) {
-			case "View Products": viewProducts(); break;
-			case "View Low Inventory": viewLowInventory(); break;
-			case "Add to Inventory": addInventory(); break;
-			case "Add New Product": addProduct(); break;
+			case "View Products": console.clear(); viewProducts(); break;
+			case "View Low Inventory": console.clear(); viewLowInventory(); break;
+			case "Add to Inventory": console.clear(); addInventory(); break;
+			case "Add New Product": console.clear(); addProduct(); break;
 			default: break;
 		}
 	});
