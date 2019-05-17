@@ -71,16 +71,7 @@ function viewLowInventory() {// * If a manager selects `View Low Inventory`, the
 		function(result) { console.log("And the result is:"); console.log(result); /* handle a successful result */ },
 		function(error) { throw error;/* handle an error */ }
 	);
-	
-	/*
-	let table = new Table({ // instantiate
-		head: ['product', 'qty remaining'],
-		colWidths: [40, 40]
-	});
-	
-	table.push(resultsArr); // table is an Array, so you can `push`, `unshift`, `splice` and friends
-	console.log(table.toString());	
-	*/
+
 }
 
 function addInventory() {
@@ -97,8 +88,6 @@ function addProduct() {
 	// * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
 }
 
-
-
 function executeQuery(qry, arr) {
 	//this function executes the query 
 	if (!arr) arr = [];
@@ -111,16 +100,10 @@ function executeQuery(qry, arr) {
 		for (x in res) {
 			let rowArr = [];
 			for (y in columns) {
-				//console.log(res[x][columns[y]]);
 				rowArr.push(res[x][columns[y]]);
 			}
-			table.push(rowArr); // .toString?
+			table.push(rowArr);
 		}
-		
-		
-		
-		
-		console.log(res); 
 				
 		console.log(table.toString());
 		
