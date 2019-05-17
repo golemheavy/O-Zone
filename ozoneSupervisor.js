@@ -62,13 +62,13 @@ function promptForContinue() {
 	});
 }
 
-function prodSalesByDept() {
+function prodSalesByDept() { // this query won't bring back departments with no items in it. but it will show sales of items with no department
 	const qry = `select
   SUBQ.department_id,
   SUBQ.department_name,
   SUBQ.over_head_costs,
-  SUM(SUBQ.product_sales) as product_sales,
-  SUM(SUBQ.PRODUCT_SALES - SUBQ.over_head_costs) as total_profits
+  SUM(SUBQ.product_sales)/100 as product_sales,
+  SUM(SUBQ.PRODUCT_SALES - SUBQ.over_head_costs)/100 as total_profits
 from
 (SELECT 
   D.*,
@@ -84,31 +84,67 @@ order by SUBQ.PRODUCT_SALES desc;`;
 
 function insertNewDept() {
 	
+		connection.query("DESCRIBE DEPARTMENTS",[],function(err, res){
+		if (err) throw err;
+		if (typeof res !== "undefined" && res.length > 0) {
+			let intFieldNameArr = [];
+			let stringFieldNameArr = [];
+			let x;
+			for (x in res) {
+				if (res[x].Key === "" && res[x].Type.startsWith("int")) intFieldNameArr.push(res[x].Field);
+				else if (res[x].Key === "" && res[x].Type.startsWith("varchar")) stringFieldNameArr.push(res[x].Field);
+			}
+			
+			let y, z = 0;
+			let questions = [];
+			for (y in stringFieldNameArr) {
+				questions.push({type: "input", name: stringFieldNameArr[y], message: "Please enter value for " + stringFieldNameArr[y]});
+			}
+			for (z in intFieldNameArr) {
+				questions.push({
+					type: "input",
+					name: intFieldNameArr[z],
+					message: "Please enter value for " + intFieldNameArr[z],
+					validate: function(value) {
+						var valid = !isNaN(parseFloat(value));
+						return valid || 'Please enter a number';
+					},
+					filter: Number});
+			}
+			
+			inquirer.prompt(questions).then(answers => {
+				//console.log(JSON.stringify(answers, null, '  '));
+				var query = connection.query("INSERT INTO DEPARTMENTS SET ?",answers,function(err, res) {
+					if (err) throw err;
+					console.log(res.affectedRows + " items inserted!\n");
+					console.log(query.sql); // query which ran
+					promptForContinue();
+				});
+			});
+		}
+	})
 }
 
-function executeQuery(qry, arr) {
-	//this function executes the query 
-	//if (typeof arr === "undefined") arr = []; // this line is not needed
+function executeQuery(qry, arr) { //this function executes the query 
 	connection.query(qry,arr,function(err, res){
 		if (err) throw err;
 		if (typeof res !== "undefined" && res.length > 0) { // this checks to ensure that res is not an empty array
 		
-		let printRes = 
-		function(){
-			let columns = Object.keys(res[0]);
-			let table = new Table({ head: columns });
-			let x;
-			for (x in res) {
-				let rowArr = [];
-				for (y in columns) {
-					rowArr.push(res[x][columns[y]]);
+			let printRes = function(){
+				let columns = Object.keys(res[0]);
+				let table = new Table({ head: columns });
+				let x;
+				for (x in res) {
+					let rowArr = [];
+					for (y in columns) {
+						rowArr.push(res[x][columns[y]]);
 					}
-				table.push(rowArr);
-			}
-			console.log(table.toString());
-		}();
-		
-		console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
+					table.push(rowArr);
+				}
+				console.log(table.toString());
+			}();
+
+			console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
 		}
 		else console.log ("\nno results.\n");
 		promptForContinue();
