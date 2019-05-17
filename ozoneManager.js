@@ -13,6 +13,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err){
 	console.log("Connected as id: " + connection.threadId + "\n");
+	console.clear();
 	start();
 });
 
@@ -66,7 +67,7 @@ function promptForContinue() {
 }
 
 function viewProducts() { // list every available item: the item IDs, names, prices, and quantities.
-	const qry = "SELECT * FROM products;";
+	const qry = "SELECT item_id, product_name, price, QTY_in_stock as In_Stock, department_name, product_sales FROM PRODUCTS P INNER JOIN DEPARTMENTS D ON P.DEPARTMENT_ID = D.DEPARTMENT_ID;";
 	executeQuery(qry);	
 }
 
