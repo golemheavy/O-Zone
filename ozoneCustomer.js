@@ -37,11 +37,20 @@ function start() {
 	});
 }
 
-function transactPurchase(id, newQty) {
-	const qry = "UPDATE products set QTY_IN_STOCK = ? where ITEM_ID = ?";
-	arr = [newQty, id];
+function transactPurchase(id, newQty, prodSales, oldSales) {
+	//const qry = "UPDATE products set QTY_IN_STOCK = ? where ITEM_ID = ?";
+	const newTotalSales = prodSales + oldSales;
+	const qry = "UPDATE PRODUCTS SET ? WHERE ITEM_ID = ?";
+	const updObj = {QTY_IN_STOCK: newQty, product_sales: newTotalSales};
+	arr = [updObj, id];
 	connection.query(qry,arr,function(err, res){
-		console.log("updating id " + id + " to " + newQty + " units.");
+		console.log("updating id " + id + " to " + newQty + " units and adding " + prodSales/100 + " to product sales for a total of " + newTotalSales/100 );
+		/*
+		const qry = "";
+		arr = [];
+		connection.query(qry,arr,function(err, res){
+		});
+		*/
 		connection.end();
 	});
 }
@@ -72,13 +81,13 @@ function main () {
 
 	inquirer.prompt(questions).then(answers => {
 		console.log('\n');
-		//console.log(JSON.stringify(answers, null, '  '));
 		connection.query("SELECT * FROM products WHERE item_id = ?",[answers.productId], function(err, res) {
 			if (err) throw err;
 			let difference = res[0].QTY_in_stock - answers.qtyToPurchase;
 			if (difference >= 0) {
-				console.log(res[0].product_name + ":\t" + answers.qtyToPurchase + " @ " + res[0].price + " = $" + ((answers.qtyToPurchase * res[0].price)/100))
-				transactPurchase(answers.productId, difference) ; // update qty and  console .log result
+				let crntSales = ((answers.qtyToPurchase * res[0].price));
+				console.log(res[0].product_name + ":\t" + answers.qtyToPurchase + " @ " + res[0].price + " = $" + crntSales/100)
+				transactPurchase(answers.productId, difference, crntSales, res[0].product_sales) ; // update qty and product sales, and log result
 			}
 			else console.log("Insufficient Quantity!");
 		});	
