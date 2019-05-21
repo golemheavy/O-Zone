@@ -40,7 +40,7 @@ function printTable() {
 	
 	const qry = "SELECT * FROM PRODUCTS";
 	const arr = [];
-	db.query(qry,arr).then(rows => console.table(rows));
+	db.query(qry,arr).then(rows => console.table(rows, ["item_id", "product_name", "price", "QTY_in_stock"]));
 	db.close().then(purchasePrompt);
 }
 
