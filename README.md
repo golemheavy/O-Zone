@@ -31,12 +31,25 @@ To purchase a product, enter the item_id value for that product, and press enter
 
 ![ozoneCustomer.js](./images/3.PNG)
 
+You will be asked what quantity you would like to purchase of that item. Enter a quantity and press enter.
 
 ![ozoneCustomer.js](./images/4.PNG)
+
+So long as the number you enter for quantity to purchase is not greater than the number in stock, the purchase will execute and the value of quantity in stock will be reduced accordingly.
+
+If you enter a number that is greater than the quantity in stock, you will be given the "Insufficient Quantity" message.
+
+Whether your purchase is executed or not, the program execution will be completed at this time.
+
 ![ozoneCustomer.js](./images/5.PNG)
 
+## ozoneManager.js
+
+To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line.
 
 ![ozoneManager.js](./images/ozoneManager1.PNG)
+
+
 ![ozoneManager.js](./images/ozoneManager2.PNG)
 ![ozoneManager.js](./images/ozoneManager3.PNG)
 ![ozoneManager.js](./images/ozoneManager4.PNG)
