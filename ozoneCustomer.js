@@ -122,7 +122,10 @@ function main () {
 					console.log(res[0].product_name + ":\t" + answers.qtyToPurchase + " @ " + res[0].price + " = $" + crntSales/100);
 					transactPurchase(answers.productId, difference, crntSales, res[0].product_sales) ; // update qty and product sales, and log result
 				}
-				else console.log("Insufficient Quantity!");
+				else {
+					console.log("Insufficient Quantity!");
+					connection.end();
+				}
 			}
 			else {
 				console.log("\n\tThat product doesn't exist. Goodbye\n");
