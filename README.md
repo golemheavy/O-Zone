@@ -74,7 +74,13 @@ to add a product, select that option and enter in the product information.
 To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line. You will be presented with a menu of two options.
 
 ![ozoneSupervisor.js](./images/ozoneSupervisor1.PNG)
+
+To see products and sales by department, select that option.
+
 ![ozoneSupervisor.js](./images/ozoneSupervisor2.PNG)
+
+To create a new department, select that option and enter in the requested information.
+
 ![ozoneSupervisor.js](./images/ozoneSupervisor3.PNG)
 ![ozoneSupervisor.js](./images/ozoneSupervisor4.PNG)
 ![ozoneSupervisor.js](./images/ozoneSupervisor5.PNG)
