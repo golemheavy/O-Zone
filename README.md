@@ -84,3 +84,4 @@ To create a new department, select that option and enter in the requested inform
 ![ozoneSupervisor.js](./images/ozoneSupervisor3.PNG)
 ![ozoneSupervisor.js](./images/ozoneSupervisor4.PNG)
 ![ozoneSupervisor.js](./images/ozoneSupervisor5.PNG)
+![ozoneSupervisor.js](./images/ozoneSupervisor6.PNG)
