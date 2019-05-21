@@ -53,12 +53,9 @@ function purchasePrompt () {
 	}
 	]).then(function(answers) {
 		if (answers.makePurchase) {
-			console.log("\nRetrieving Data");
-			console.log("\n-----------------------------\n");
 			main();
 		}
 		else {
-			//connection.end();
 			return console.log("\nThank you for shopping.\n");
 		}
 	});
@@ -66,25 +63,18 @@ function purchasePrompt () {
 
 function start() {
 	console.log("\n\tO-zone retailer CLI\n");
-	
 	printTable();	
 }
 
 function transactPurchase(id, newQty, prodSales, oldSales) {
-	//const connection = new Database(configObj);
-	//const qry = "UPDATE products set QTY_IN_STOCK = ? where ITEM_ID = ?";
+
 	const newTotalSales = prodSales + oldSales;
 	const qry = "UPDATE PRODUCTS SET ? WHERE ITEM_ID = ?";
 	const updObj = {QTY_IN_STOCK: newQty, product_sales: newTotalSales};
 	arr = [updObj, id];
 	connection.query(qry,arr,function(err, res){
-		console.log("updating id " + id + " to " + newQty + " units and adding " + prodSales/100 + " to product sales for a total of " + newTotalSales/100 );
-		/*
-		const qry = "";
-		arr = [];
-		connection.query(qry,arr,function(err, res){
-		});
-		*/
+		//console.log("updating id " + id + " to " + newQty + " units and adding " + prodSales/100 + " to product sales for a total of " + newTotalSales/100 );
+		console.log("done!");
 		connection.end();
 	});
 }
