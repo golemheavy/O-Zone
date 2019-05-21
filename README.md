@@ -45,7 +45,7 @@ Whether your purchase is executed or not, the program execution will be complete
 
 ## ozoneManager.js
 
-To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line. You will be greeted by a menu of four options.
+To run ozoneManager.js, invoke `node ozoneManager.js` from the command line. You will be greeted by a menu of four options.
 
 ![ozoneManager.js](./images/ozoneManager1.PNG)
 
@@ -68,6 +68,10 @@ To add an item to inventory, select that option, then select the desired item yo
 to add a product, select that option and enter in the product information.
 
 ![ozoneManager.js](./images/ozoneManager10.PNG)
+
+## ozoneCustomer.js
+
+To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line. You will be presented with a menu of two options.
 
 ![ozoneSupervisor.js](./images/ozoneSupervisor1.PNG)
 ![ozoneSupervisor.js](./images/ozoneSupervisor2.PNG)
