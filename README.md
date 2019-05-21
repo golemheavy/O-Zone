@@ -1,11 +1,11 @@
 # O-Zone
 The Online Outlet Zone is an online store. This project uses Node.js and MySQL.
 
-![ozoneCustomer.js](./1.PNG)
-![ozoneCustomer.js](./2.PNG)
-![ozoneCustomer.js](./3.PNG)
-![ozoneCustomer.js](./4.PNG)
-![ozoneCustomer.js](./5.PNG)
+![ozoneCustomer.js](./images/1.PNG)
+![ozoneCustomer.js](./images/2.PNG)
+![ozoneCustomer.js](./images/3.PNG)
+![ozoneCustomer.js](./images/4.PNG)
+![ozoneCustomer.js](./images/5.PNG)
 
 
 ![ozoneManager.js](./images/ozoneManager1.PNG)
@@ -19,6 +19,11 @@ The Online Outlet Zone is an online store. This project uses Node.js and MySQL.
 ![ozoneManager.js](./images/ozoneManager9.PNG)
 ![ozoneManager.js](./images/ozoneManager10.PNG)
 
+![ozoneSupervisor.js](./images/ozoneSupervisor1.PNG)
+![ozoneSupervisor.js](./images/ozoneSupervisor2.PNG)
+![ozoneSupervisor.js](./images/ozoneSupervisor3.PNG)
+![ozoneSupervisor.js](./images/ozoneSupervisor4.PNG)
+![ozoneSupervisor.js](./images/ozoneSupervisor5.PNG)
 
 
 Challenge 1:
