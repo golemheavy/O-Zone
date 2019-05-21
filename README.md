@@ -75,7 +75,7 @@ To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line. Y
 
 ![ozoneSupervisor.js](./images/ozoneSupervisor1.PNG)
 
-To see products and sales by department, select that option.
+To see product sales by department, select that option.
 
 ![ozoneSupervisor.js](./images/ozoneSupervisor2.PNG)
 
