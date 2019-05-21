@@ -144,7 +144,8 @@ function executeQuery(qry, arr) { //this function executes the query
 				console.log(table.toString());
 			}();
 
-			console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
+			//following line is for debugging purposes
+			//console.log('\nExecuted query:\t"' + qry + '" with values:\t' + function(){if (typeof arr === "undefined" || arr.length === 0) return "none"; else return arr.toString();}());
 		}
 		else console.log ("\nno results.\n");
 		promptForContinue();
