@@ -1,6 +1,18 @@
 # O-Zone
 The Online Outlet Zone is an online store. This project uses Node.js and MySQL.
 
+This application is a suite of three files, each of which is meant to be run separately for different functions, as defined in the requirements.
+
+To use this suite, first clone the repository. Then, install node package dependencies by running invoking `npm install` from the command line.
+
+You will also need to set up a database and seed it by running the sql script in the /DBseeds/ folder.
+
+After the repo has been cloned and the npm packages installed, you can run any of the following three nodejs files to interact with the database.
+
+1. ozoneCustomer.js: invoke `node ozoneCustomer.js` from the command line.
+2. ozoneManager.js: invoke `node ozoneManager.js` from the command line.
+3. ozoneSupervisor.js: invoke `node ozoneSupervisor.js` from the command line.
+
 ![ozoneCustomer.js](./images/1.PNG)
 ![ozoneCustomer.js](./images/2.PNG)
 ![ozoneCustomer.js](./images/3.PNG)
