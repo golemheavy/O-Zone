@@ -53,23 +53,21 @@ Select "View Products" to a see a list of products in stock.
 
 ![ozoneManager.js](./images/ozoneManager2.PNG)
 
-Notice that the menu is presented again, and you are allowed to make another selection.
+If you enter "y" after this, you will again be presented with the menu, allowing you to make another selection.
 
 To see items with quantity in stock below 5, select "View Low Inventory."
 
 ![ozoneManager.js](./images/ozoneManager3.PNG)
 
-To add an item to inventory, select that option:
+To add an item to inventory, select that option, then select the desired item you are restocking, and enter in the new number for quantity in stock.
 
 ![ozoneManager.js](./images/ozoneManager4.PNG)
-
-
 ![ozoneManager.js](./images/ozoneManager5.PNG)
 ![ozoneManager.js](./images/ozoneManager6.PNG)
-![ozoneManager.js](./images/ozoneManager7.PNG)
 
 to add a product, select that option and enter in the product information.
 
+![ozoneManager.js](./images/ozoneManager7.PNG)
 ![ozoneManager.js](./images/ozoneManager8.PNG)
 ![ozoneManager.js](./images/ozoneManager9.PNG)
 ![ozoneManager.js](./images/ozoneManager10.PNG)
