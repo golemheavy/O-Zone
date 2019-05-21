@@ -34,6 +34,8 @@ function Database(config) {
 
 function printTable() {
 	
+	console.clear();
+	
 	const db = new Database(configObj);
 	
 	const qry = "SELECT * FROM PRODUCTS";
@@ -114,13 +116,10 @@ function main () {
 	inquirer.prompt(questions).then(answers => {
 		console.log('\n');
 		
-		//const connection = new Database(configObj);
-		
 		connection = mysql.createConnection(configObj);
 		
 		connection.connect(function(err){
-			console.log("Connected as id: " + connection.threadId + "\n");
-			console.clear();
+			if (err) throw err;
 		});
 		
 		
