@@ -18,6 +18,7 @@ After the repo has been cloned and the npm packages installed, you can run any o
 To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line.
 
 The first thing you will see will be, a list of products available for sale, along with their item IDs, their prices, their names and how many are in stock.
+
 ![ozoneCustomer.js](./images/1.PNG)
 
 You will be asked if you would like to purchase anything. Press the 'y' key for yes or any other key to exit, and press enter.
