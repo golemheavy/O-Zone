@@ -67,9 +67,6 @@ To add an item to inventory, select that option, then select the desired item yo
 
 to add a product, select that option and enter in the product information.
 
-![ozoneManager.js](./images/ozoneManager7.PNG)
-![ozoneManager.js](./images/ozoneManager8.PNG)
-![ozoneManager.js](./images/ozoneManager9.PNG)
 ![ozoneManager.js](./images/ozoneManager10.PNG)
 
 ![ozoneSupervisor.js](./images/ozoneSupervisor1.PNG)
