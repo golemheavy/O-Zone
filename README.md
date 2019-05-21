@@ -13,9 +13,24 @@ After the repo has been cloned and the npm packages installed, you can run any o
 2. ozoneManager.js: invoke `node ozoneManager.js` from the command line.
 3. ozoneSupervisor.js: invoke `node ozoneSupervisor.js` from the command line.
 
+## ozoneCustomer.js
+
+To run ozoneCustomer.js, invoke `node ozoneCustomer.js` from the command line.
+
+The first thing you will see will be, a list of products available for sale, along with their item IDs, their prices, their names and how many are in stock.
 ![ozoneCustomer.js](./images/1.PNG)
+
+You will be asked if you would like to purchase anything. Press the 'y' key for yes or any other key to exit, and press enter.
+
 ![ozoneCustomer.js](./images/2.PNG)
+
+You will be asked to enter the ID number of the item you would like to purchase.
+
+To purchase a product, enter the item_id value for that product, and press enter.
+
 ![ozoneCustomer.js](./images/3.PNG)
+
+
 ![ozoneCustomer.js](./images/4.PNG)
 ![ozoneCustomer.js](./images/5.PNG)
 
