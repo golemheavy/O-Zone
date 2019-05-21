@@ -36,7 +36,7 @@ function start() {
 	{
 		type: 'list',
 		name: 'selectOption',
-		choices: ["View Products and Sales by Department","Create New Department"]
+		choices: ["View Product Sales by Department","Create New Department"]
 	}
 	];
 	inquirer.prompt(questions).then(answers => {
